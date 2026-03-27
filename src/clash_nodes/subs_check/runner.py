@@ -53,13 +53,9 @@ class SubsCheckRunner:
             f"/workspace/{SUBS_CHECK_CONFIG_PATH}",
         ]
         _log(f"running {' '.join(command)}")
-        result = subprocess.run(command, capture_output=True, text=True, check=False)
-        if result.stdout.strip():
-            print(result.stdout, end="" if result.stdout.endswith("\n") else "\n", flush=True)
-        if result.stderr.strip():
-            print(result.stderr, end="" if result.stderr.endswith("\n") else "\n", flush=True)
+        result = subprocess.run(command, check=False)
         if result.returncode != 0:
-            raise SubsCheckError(result.stderr or result.stdout or "subs-check failed")
+            raise SubsCheckError(f"subs-check failed with exit code {result.returncode}")
 
         missing = [name for name in EXPECTED_OUTPUT_FILES if not (output_dir / name).exists()]
         if missing:
@@ -69,6 +65,4 @@ class SubsCheckRunner:
         return {
             "returncode": result.returncode,
             "command": command,
-            "stdout": result.stdout,
-            "stderr": result.stderr,
         }
