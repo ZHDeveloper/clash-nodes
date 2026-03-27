@@ -23,6 +23,10 @@ from clash_nodes.pipeline.storage import read_json, read_line_set, write_json
 from clash_nodes.subs_check.runner import SubsCheckRunner
 
 
+def _log(message: str) -> None:
+    print(f"[clash-nodes] {message}", flush=True)
+
+
 @dataclass
 class SourceRecord:
     url: str
@@ -49,7 +53,9 @@ def discover_sources(
     blocklist = read_line_set(base_dir / SOURCE_BLOCKLIST_PATH)
     today = today or datetime.now(UTC).date()
 
+    _log(f"discovering sources in {base_dir}")
     repositories = github_client.search_repositories()
+    _log(f"found {len(repositories)} candidate repositories")
     found_sources: list[SourceRecord] = []
     seen_urls: set[str] = set()
 
@@ -102,6 +108,7 @@ def discover_sources(
             "sources": [asdict(item) for item in found_sources],
         },
     )
+    _log(f"saved {len(found_sources)} subscription sources to {DISCOVERED_SOURCES_PATH}")
     return {
         "status": "ok",
         "repo_count": len(repositories),
@@ -118,8 +125,10 @@ def build_outputs(base_dir: Path, subs_check_runner: SubsCheckRunner | object | 
     if not source_urls:
         stats = {"status": "no_sources", "candidate_source_count": 0, "generated_files": []}
         write_json(base_dir / STATS_PATH, stats)
+        _log("no subscription sources found; skipping output generation")
         return stats
 
+    _log(f"building outputs from {len(source_urls)} sources into {output_dir}")
     result = subs_check_runner.run(source_urls=source_urls, output_dir=output_dir, work_dir=base_dir)
     generated_files = sorted(name for name in EXPECTED_OUTPUT_FILES if (output_dir / name).exists())
     stats = {
@@ -128,6 +137,7 @@ def build_outputs(base_dir: Path, subs_check_runner: SubsCheckRunner | object | 
         "generated_files": generated_files,
     }
     write_json(base_dir / STATS_PATH, stats)
+    _log(f"generated files: {', '.join(generated_files)}")
     return {"status": "ok", "generated_files": generated_files, "runner": result}
 
 
@@ -136,12 +146,16 @@ def run_pipeline(
     github_client: GitHubClient | object | None = None,
     subs_check_runner: SubsCheckRunner | object | None = None,
 ) -> dict[str, object]:
+    _log("pipeline started")
     discover_result = discover_sources(base_dir=base_dir, github_client=github_client)
     if int(discover_result["candidate_source_count"]) == 0:
         stats = {"status": "no_sources", "candidate_source_count": 0, "generated_files": []}
         write_json(base_dir / STATS_PATH, stats)
+        _log("pipeline finished without sources")
         return stats
-    return build_outputs(base_dir=base_dir, subs_check_runner=subs_check_runner)
+    result = build_outputs(base_dir=base_dir, subs_check_runner=subs_check_runner)
+    _log(f"pipeline finished with status={result['status']}")
+    return result
 
 
 def _append_source(

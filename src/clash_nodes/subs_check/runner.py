@@ -15,6 +15,10 @@ class SubsCheckError(RuntimeError):
     """Raised when subs-check execution fails."""
 
 
+def _log(message: str) -> None:
+    print(f"[subs-check] {message}", flush=True)
+
+
 @dataclass
 class SubsCheckRunner:
     image: str = "ghcr.io/beck-8/subs-check:latest"
@@ -32,6 +36,7 @@ class SubsCheckRunner:
                 allow_unicode=True,
             )
         )
+        _log(f"wrote config to {config_path}")
 
         output_dir.mkdir(parents=True, exist_ok=True)
         command = [
@@ -47,13 +52,19 @@ class SubsCheckRunner:
             "-f",
             f"/workspace/{SUBS_CHECK_CONFIG_PATH}",
         ]
+        _log(f"running {' '.join(command)}")
         result = subprocess.run(command, capture_output=True, text=True, check=False)
+        if result.stdout.strip():
+            print(result.stdout, end="" if result.stdout.endswith("\n") else "\n", flush=True)
+        if result.stderr.strip():
+            print(result.stderr, end="" if result.stderr.endswith("\n") else "\n", flush=True)
         if result.returncode != 0:
             raise SubsCheckError(result.stderr or result.stdout or "subs-check failed")
 
         missing = [name for name in EXPECTED_OUTPUT_FILES if not (output_dir / name).exists()]
         if missing:
             raise SubsCheckError(f"subs-check finished without expected files: {', '.join(missing)}")
+        _log(f"verified expected files in {output_dir}")
 
         return {
             "returncode": result.returncode,
