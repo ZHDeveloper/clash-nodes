@@ -7,20 +7,16 @@ DEFAULT_MIHOMO_OVERWRITE_URL = (
 )
 
 
-def build_subs_check_config(
-    source_urls: list[str],
-    output_dir: Path,
-    work_dir: Path,
-    check_interval_minutes: int | None = None,
-) -> dict[str, object]:
+def build_subs_check_config(source_urls: list[str], output_dir: Path, work_dir: Path) -> dict[str, object]:
     try:
         configured_output_dir = output_dir.relative_to(work_dir)
     except ValueError:
         configured_output_dir = output_dir
 
-    config: dict[str, object] = {
+    return {
         "print-progress": True,
         "concurrent": 50,
+        "check-interval": 60,
         "timeout": 1000,
         "alive-test-url": "http://gstatic.com/generate_204",
         "speed-test-url": "https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z",
@@ -40,8 +36,3 @@ def build_subs_check_config(
         "success-rate": 0,
         "sub-urls": source_urls,
     }
-
-    if check_interval_minutes is not None:
-        config["check-interval"] = check_interval_minutes
-
-    return config
