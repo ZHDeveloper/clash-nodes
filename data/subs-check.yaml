@@ -1,14 +1,14 @@
 print-progress: true
-concurrent: 20
+concurrent: 32
 check-interval: 1440
-timeout: 5000
+timeout: 2000
 alive-test-url: http://gstatic.com/generate_204
 speed-test-url: https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z
-min-speed: 0
-download-timeout: 5
-download-mb: 10
+min-speed: 2048
+download-timeout: 2
+download-mb: 20
 rename-node: true
-media-check: false
+media-check: true
 save-method: local
 output-dir: output
 enable-web-ui: false
@@ -16,7 +16,7 @@ sub-store-port: :8299
 sub-store-path: ''
 sub-urls-retry: 2
 sub-urls-get-ua: clash.meta (https://github.com/beck-8/subs-check)
-success-rate: 0
+success-rate: 90
 sub-urls:
 - https://raw.githubusercontent.com/rtwo2/FastNodes/main/.github/workflows/collector-main.yml
 - https://raw.githubusercontent.com/rtwo2/FastNodes/main/ProxyCollector/bogons.txt
