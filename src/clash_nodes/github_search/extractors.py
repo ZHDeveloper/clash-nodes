@@ -8,10 +8,8 @@ from clash_nodes.pipeline.sources import normalize_source_url
 README_URL_RE = re.compile(r"https?://[^\s)>\"]+")
 
 SUBSCRIPTION_PATTERNS = (
-    re.compile(r"(^|/)(sub[^/]*)$", re.IGNORECASE),
-    re.compile(r"(^|/)sub/[^/]*(sub|subscription|node|proxy)[^/]*$", re.IGNORECASE),
-    re.compile(r"(^|/)(clash[^/]*|proxy[^/]*|nodes?[^/]*)\.(ya?ml|txt)$", re.IGNORECASE),
-    re.compile(r"\.(ya?ml|txt)$", re.IGNORECASE),
+    re.compile(r"(^|/)(clash[^/]*|proxy[^/]*|nodes?[^/]*)\.(yml|txt)$", re.IGNORECASE),
+    re.compile(r"\.(yml|txt)$", re.IGNORECASE),
 )
 
 
