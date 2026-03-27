@@ -1,0 +1,2 @@
+# Optional blocklist.
+# Add either a repo full name like owner/repo or a full raw URL.
