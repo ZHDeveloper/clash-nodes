@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+from datetime import UTC, date, datetime
 from pathlib import Path
+import re
 
 from clash_nodes.constants import (
+    DATED_SOURCE_MAX_AGE_DAYS,
     DISCOVERED_SOURCES_PATH,
     EXPECTED_OUTPUT_FILES,
     SOURCE_ALLOWLIST_PATH,
@@ -30,10 +33,21 @@ class SourceRecord:
     updated_at: str
 
 
-def discover_sources(base_dir: Path, github_client: GitHubClient | object | None = None) -> dict[str, int | str]:
+DATE_TOKEN_PATTERNS = (
+    re.compile(r"(?P<full_ymd>20\d{2}\d{2}\d{2})"),
+    re.compile(r"(?P<y>20\d{2})[-_/](?P<m>\d{2})[-_/](?P<d>\d{2})"),
+)
+
+
+def discover_sources(
+    base_dir: Path,
+    github_client: GitHubClient | object | None = None,
+    today: date | None = None,
+) -> dict[str, int | str]:
     github_client = github_client or GitHubClient.from_env()
     allowlist = read_line_set(base_dir / SOURCE_ALLOWLIST_PATH)
     blocklist = read_line_set(base_dir / SOURCE_BLOCKLIST_PATH)
+    today = today or datetime.now(UTC).date()
 
     repositories = github_client.search_repositories()
     found_sources: list[SourceRecord] = []
@@ -61,6 +75,7 @@ def discover_sources(base_dir: Path, github_client: GitHubClient | object | None
                 url=candidate["url"],
                 path=candidate["path"],
                 discovered_via="repo_tree",
+                today=today,
             )
 
         try:
@@ -78,6 +93,7 @@ def discover_sources(base_dir: Path, github_client: GitHubClient | object | None
                 url=url,
                 path=path,
                 discovered_via="readme",
+                today=today,
             )
 
     write_json(
@@ -138,9 +154,12 @@ def _append_source(
     url: str,
     path: str,
     discovered_via: str,
+    today: date,
 ) -> None:
     normalized = normalize_source_url(url)
     if not normalized or normalized in seen_urls:
+        return
+    if _is_stale_dated_path(path, today=today):
         return
     if blocklist and (normalized in blocklist or repo["full_name"] in blocklist):
         return
@@ -163,3 +182,33 @@ def _append_source(
 def _path_from_raw_url(url: str) -> str:
     parts = url.split("/", 6)
     return parts[6] if len(parts) > 6 else ""
+
+
+def _is_stale_dated_path(path: str, *, today: date) -> bool:
+    dated_value = _extract_date_from_path(path)
+    if dated_value is None:
+        return False
+    age_days = (today - dated_value).days
+    return age_days >= DATED_SOURCE_MAX_AGE_DAYS
+
+
+def _extract_date_from_path(path: str) -> date | None:
+    for pattern in DATE_TOKEN_PATTERNS:
+        match = pattern.search(path)
+        if not match:
+            continue
+        groups = match.groupdict()
+        if groups.get("full_ymd"):
+            ymd = groups["full_ymd"]
+            year = int(ymd[:4])
+            month = int(ymd[4:6])
+            day = int(ymd[6:8])
+        else:
+            year = int(groups["y"])
+            month = int(groups["m"])
+            day = int(groups["d"])
+        try:
+            return date(year, month, day)
+        except ValueError:
+            return None
+    return None
