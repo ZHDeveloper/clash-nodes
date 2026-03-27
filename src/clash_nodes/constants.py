@@ -19,5 +19,5 @@ DISCOVERED_SOURCES_PATH = "data/sources.json"
 STATS_PATH = "data/stats.json"
 SUBS_CHECK_CONFIG_PATH = "data/subs-check.yaml"
 
-EXPECTED_OUTPUT_FILES = ["all.yaml", "base64.txt", "mihomo.yaml"]
+EXPECTED_OUTPUT_FILES = ["all.yaml", "base64.txt"]
 DATED_SOURCE_MAX_AGE_DAYS = 7

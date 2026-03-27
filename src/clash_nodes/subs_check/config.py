@@ -2,10 +2,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-DEFAULT_MIHOMO_OVERWRITE_URL = (
-    "https://raw.githubusercontent.com/beck-8/override-hub/refs/heads/main/yaml/ACL4SSR_Online_Full.yaml"
-)
-
 
 def build_subs_check_config(source_urls: list[str], output_dir: Path, work_dir: Path) -> dict[str, object]:
     try:
@@ -30,7 +26,6 @@ def build_subs_check_config(source_urls: list[str], output_dir: Path, work_dir: 
         "enable-web-ui": False,
         "sub-store-port": ":8299",
         "sub-store-path": "",
-        "mihomo-overwrite-url": DEFAULT_MIHOMO_OVERWRITE_URL,
         "sub-urls-retry": 2,
         "sub-urls-get-ua": "clash.meta (https://github.com/beck-8/subs-check)",
         "success-rate": 0,
