@@ -1230,7 +1230,7 @@
       "path": "server.txt",
       "discovered_via": "repo_tree",
       "default_branch": "main",
-      "updated_at": "2026-03-27T10:20:13Z"
+      "updated_at": "2026-03-27T10:30:13Z"
     },
     {
       "url": "https://raw.githubusercontent.com/clashforios/clashforios.github.io/main/.github/workflows/static.yml",
@@ -2529,54 +2529,6 @@
       "updated_at": "2026-03-27T10:08:35Z"
     },
     {
-      "url": "https://raw.githubusercontent.com/PuddinCat/BestClash/main/5M.txt",
-      "repository": "PuddinCat/BestClash",
-      "path": "5M.txt",
-      "discovered_via": "repo_tree",
-      "default_branch": "main",
-      "updated_at": "2026-03-27T10:01:02Z"
-    },
-    {
-      "url": "https://raw.githubusercontent.com/aiboboxx/clashfree/main/clash.yml",
-      "repository": "PuddinCat/BestClash",
-      "path": "clash.yml",
-      "discovered_via": "readme",
-      "default_branch": "main",
-      "updated_at": "2026-03-27T10:01:02Z"
-    },
-    {
-      "url": "https://raw.githubusercontent.com/ermaozi/get_subscribe/main/subscribe/clash.yml",
-      "repository": "PuddinCat/BestClash",
-      "path": "subscribe/clash.yml",
-      "discovered_via": "readme",
-      "default_branch": "main",
-      "updated_at": "2026-03-27T10:01:02Z"
-    },
-    {
-      "url": "https://raw.githubusercontent.com/ermaozi01/free_clash_vpn/main/subscribe/clash.yml",
-      "repository": "PuddinCat/BestClash",
-      "path": "subscribe/clash.yml",
-      "discovered_via": "readme",
-      "default_branch": "main",
-      "updated_at": "2026-03-27T10:01:02Z"
-    },
-    {
-      "url": "https://raw.githubusercontent.com/mahdibland/ShadowsocksAggregator/master/Eternity.yml",
-      "repository": "PuddinCat/BestClash",
-      "path": "Eternity.yml",
-      "discovered_via": "readme",
-      "default_branch": "main",
-      "updated_at": "2026-03-27T10:01:02Z"
-    },
-    {
-      "url": "https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.yml",
-      "repository": "PuddinCat/BestClash",
-      "path": "list.yml",
-      "discovered_via": "readme",
-      "default_branch": "main",
-      "updated_at": "2026-03-27T10:01:02Z"
-    },
-    {
       "url": "https://raw.githubusercontent.com/surfboardgithub/surfboardgithub.github.io/main/.github/workflows/static.yml",
       "repository": "surfboardgithub/surfboardgithub.github.io",
       "path": ".github/workflows/static.yml",
@@ -3391,38 +3343,6 @@
       "discovered_via": "repo_tree",
       "default_branch": "main",
       "updated_at": "2026-03-27T10:14:04Z"
-    },
-    {
-      "url": "https://raw.githubusercontent.com/liangshengyong/LanWan/master/.github/FUNDING.yml",
-      "repository": "liangshengyong/LanWan",
-      "path": ".github/FUNDING.yml",
-      "discovered_via": "repo_tree",
-      "default_branch": "master",
-      "updated_at": "2026-03-27T10:03:38Z"
-    },
-    {
-      "url": "https://raw.githubusercontent.com/liangshengyong/LanWan/master/.github/workflows/fetch-ovpn.yml",
-      "repository": "liangshengyong/LanWan",
-      "path": ".github/workflows/fetch-ovpn.yml",
-      "discovered_via": "repo_tree",
-      "default_branch": "master",
-      "updated_at": "2026-03-27T10:03:38Z"
-    },
-    {
-      "url": "https://raw.githubusercontent.com/liangshengyong/LanWan/master/.github/workflows/fetch.yml",
-      "repository": "liangshengyong/LanWan",
-      "path": ".github/workflows/fetch.yml",
-      "discovered_via": "repo_tree",
-      "default_branch": "master",
-      "updated_at": "2026-03-27T10:03:38Z"
-    },
-    {
-      "url": "https://raw.githubusercontent.com/liangshengyong/LanWan/master/data/servers.txt",
-      "repository": "liangshengyong/LanWan",
-      "path": "data/servers.txt",
-      "discovered_via": "repo_tree",
-      "default_branch": "master",
-      "updated_at": "2026-03-27T10:03:38Z"
     },
     {
       "url": "https://raw.githubusercontent.com/awesome-vpn/awesome-vpn/master/.github/workflows/daily.yml",
