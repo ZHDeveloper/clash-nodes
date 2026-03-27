@@ -27,7 +27,7 @@ class SubsCheckRunner:
         config_path.parent.mkdir(parents=True, exist_ok=True)
         config_path.write_text(
             yaml.safe_dump(
-                build_subs_check_config(source_urls=source_urls, output_dir=output_dir),
+                build_subs_check_config(source_urls=source_urls, output_dir=output_dir, work_dir=work_dir),
                 sort_keys=False,
                 allow_unicode=True,
             )

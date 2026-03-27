@@ -10,7 +10,7 @@ download-mb: 10
 rename-node: true
 media-check: false
 save-method: local
-output-dir: /Users/king/Documents/clash-nodes/output
+output-dir: output
 enable-web-ui: false
 sub-store-port: :8299
 sub-store-path: ''

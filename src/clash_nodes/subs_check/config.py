@@ -3,7 +3,12 @@ from __future__ import annotations
 from pathlib import Path
 
 
-def build_subs_check_config(source_urls: list[str], output_dir: Path) -> dict[str, object]:
+def build_subs_check_config(source_urls: list[str], output_dir: Path, work_dir: Path) -> dict[str, object]:
+    try:
+        configured_output_dir = output_dir.relative_to(work_dir)
+    except ValueError:
+        configured_output_dir = output_dir
+
     return {
         "print-progress": True,
         "concurrent": 20,
@@ -17,7 +22,7 @@ def build_subs_check_config(source_urls: list[str], output_dir: Path) -> dict[st
         "rename-node": True,
         "media-check": False,
         "save-method": "local",
-        "output-dir": str(output_dir),
+        "output-dir": str(configured_output_dir),
         "enable-web-ui": False,
         "sub-store-port": ":8299",
         "sub-store-path": "",
