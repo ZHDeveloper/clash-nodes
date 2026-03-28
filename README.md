@@ -2,6 +2,16 @@
 
 GitHub 节点聚合与订阅生成工具。它会搜索公开 GitHub 仓库中的订阅文件或 README 里的 GitHub 订阅链接，汇总后交给 [`beck-8/subs-check`](https://github.com/beck-8/subs-check) 做测活、去重和转换，然后把结果发布到仓库里的 [`output/`](/Users/king/Documents/clash-nodes/output) 目录。
 
+## Output
+
+- 目录: [`output/`](/Users/king/Documents/clash-nodes/output)
+- `all.yaml`: <https://raw.githubusercontent.com/ZHDeveloper/clash-nodes/main/output/all.yaml>
+- `all.yaml` (`ghproxy`): <https://ghproxy.com/https://raw.githubusercontent.com/ZHDeveloper/clash-nodes/main/output/all.yaml>
+- `mihomo.yaml`: <https://raw.githubusercontent.com/ZHDeveloper/clash-nodes/main/output/mihomo.yaml>
+- `mihomo.yaml` (`ghproxy`): <https://ghproxy.com/https://raw.githubusercontent.com/ZHDeveloper/clash-nodes/main/output/mihomo.yaml>
+- `base64.txt`: <https://raw.githubusercontent.com/ZHDeveloper/clash-nodes/main/output/base64.txt>
+- `base64.txt` (`ghproxy`): <https://ghproxy.com/https://raw.githubusercontent.com/ZHDeveloper/clash-nodes/main/output/base64.txt>
+
 ## 功能
 
 - 搜索公开仓库并提取 `yml/yaml/txt/sub` 等候选订阅文件
